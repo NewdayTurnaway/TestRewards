@@ -1,6 +1,6 @@
 namespace Rewards
 {
-    internal enum RewardType
+    internal enum ResourceType
     {
         Wood,
         Diamond

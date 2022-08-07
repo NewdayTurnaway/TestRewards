@@ -49,7 +49,7 @@ GameObject:
   - component: {fileID: 7402747994275114330}
   - component: {fileID: 7979480310274708407}
   m_Layer: 5
-  m_Name: Container Slot Reward
+  m_Name: SlotPrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
