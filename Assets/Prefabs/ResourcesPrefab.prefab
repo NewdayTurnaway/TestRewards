@@ -298,7 +298,7 @@ GameObject:
   - component: {fileID: 5331680501836591545}
   - component: {fileID: -6248952299584086558}
   m_Layer: 5
-  m_Name: Conteiner Count Resources
+  m_Name: ResourcesPrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -339,4 +339,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96425fa3077544b39fa1224a40cfc2ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _image: {fileID: 2800427364667975397}
   _count: {fileID: 2019140502303762168}

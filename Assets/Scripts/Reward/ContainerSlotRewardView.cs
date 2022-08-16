@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 namespace Rewards
 {
-    internal class ContainerSlotRewardView : MonoBehaviour
+    internal sealed class ContainerSlotRewardView : MonoBehaviour
     {
         [SerializeField] private Image _originalBackground;
         [SerializeField] private Image _selectBackground;
@@ -13,10 +13,18 @@ namespace Rewards
         [SerializeField] private TMP_Text _countReward;
 
 
-        public void SetData(Reward reward, int countDay, bool isSelected)
+        public void SetData(RewardsDataType type, Reward reward, int countDay, bool isSelected)
         {
-            _iconCurrency.sprite = reward.IconCurrency;
-            _textDays.text = $"Day {countDay}";
+            _iconCurrency.sprite = reward.ResourceIcon;
+
+            string text = type switch
+            {
+                RewardsDataType.Daily => ConstantText.DAY,
+                RewardsDataType.Weekly => ConstantText.WEEK,
+                _ => string.Empty,
+            };
+            _textDays.text = $"{text} {countDay}";
+
             _countReward.text = reward.CountCurrency.ToString();
 
             UpdateBackground(isSelected);
