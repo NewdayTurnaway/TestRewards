@@ -3,14 +3,14 @@ using Object = UnityEngine.Object;
 
 namespace Rewards
 {
-    internal sealed class RewardsFactory
+    internal sealed class RewardSlotPanel
     {
         private readonly RewardsView _view;
         private readonly RewardsInfo _rewardsInfo;
 
         private readonly List<ContainerSlotRewardView> _slots = new();
 
-        public RewardsFactory(RewardsView view, RewardsInfo rewardsInfo, List<ContainerSlotRewardView> slots)
+        public RewardSlotPanel(RewardsView view, RewardsInfo rewardsInfo, List<ContainerSlotRewardView> slots)
         {
             _view = view;
             _rewardsInfo = rewardsInfo;
@@ -26,14 +26,6 @@ namespace Rewards
             }
         }
 
-        private ContainerSlotRewardView CreateSlotRewardView() =>
-            Object.Instantiate
-            (
-                _view.SlotPrefab,
-                _view.SlotsContainer,
-                false
-            );
-
         public void DeinitSlots()
         {
             foreach (ContainerSlotRewardView slot in _slots)
@@ -41,5 +33,13 @@ namespace Rewards
 
             _slots.Clear();
         }
+
+        private ContainerSlotRewardView CreateSlotRewardView() =>
+            Object.Instantiate
+            (
+                _view.SlotPrefab,
+                _view.SlotsContainer,
+                false
+            );
     }
 }

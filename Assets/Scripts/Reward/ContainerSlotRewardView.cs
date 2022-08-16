@@ -13,17 +13,17 @@ namespace Rewards
         [SerializeField] private TMP_Text _countReward;
 
 
-        public void SetData(RewardsDataType type, Reward reward, int countDay, bool isSelected)
+        public void SetData(RewardType type, RewardConfig reward, int countCooldownPeriods, bool isSelected)
         {
             _iconCurrency.sprite = reward.ResourceIcon;
 
             string text = type switch
             {
-                RewardsDataType.Daily => ConstantText.DAY,
-                RewardsDataType.Weekly => ConstantText.WEEK,
+                RewardType.Daily => ConstantText.DAY,
+                RewardType.Weekly => ConstantText.WEEK,
                 _ => string.Empty,
             };
-            _textDays.text = $"{text} {countDay}";
+            _textDays.text = $"{text} {countCooldownPeriods}";
 
             _countReward.text = reward.CountCurrency.ToString();
 

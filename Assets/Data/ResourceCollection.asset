@@ -9,8 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 623f9780af54aec4eaf511aa5538a88a, type: 3}
-  m_Name: ResourcesData
+  m_Script: {fileID: 11500000, guid: b7a1c809036e4804083fd2b9437abb43, type: 3}
+  m_Name: ResourceCollection
   m_EditorClassIdentifier: 
   <Resources>k__BackingField:
   - {fileID: 11400000, guid: e836c338155a7aa48a06e4980e3e7600, type: 2}

@@ -7,21 +7,21 @@ namespace Rewards
     {
         private readonly RewardsView _view;
         private readonly RewardsInfo _rewardsInfo;
-        private readonly CurrencyController _currencyController;
 
         private readonly List<ContainerSlotRewardView> _slots = new();
 
+        private readonly RewardsStateController _rewardsStateController;
         private readonly RewardsUiButtonsController _uiButtonsController;
 
-        public RewardsUiController(RewardsView view, RewardsInfo rewardsInfo, 
-            CurrencyController currencyController, List<ContainerSlotRewardView> slots)
+        public RewardsUiController(RewardsView view, RewardsInfo rewardsInfo,
+            RewardsStateController rewardsStateController, List<ContainerSlotRewardView> slots)
         {
             _view = view;
             _rewardsInfo = rewardsInfo;
-            _currencyController = currencyController;
+            _rewardsStateController = rewardsStateController;
             _slots = slots;
 
-            _uiButtonsController = new(_view, _rewardsInfo, _currencyController);
+            _uiButtonsController = new(_view, _rewardsStateController);
         }
 
         public void Init()
@@ -33,19 +33,16 @@ namespace Rewards
         public void Deinit() => 
             _uiButtonsController.UnsubscribeButtons();
 
-        public void RefreshRewardsState() => 
-            _uiButtonsController.RefreshRewardsState();
-
         public void RefreshUi()
         {
-            _view.GetRewardButton.interactable = _uiButtonsController.IsGetReward;
+            _uiButtonsController.RefreshButtonState();
             _view.TimerNewReward.text = GetTimerNewRewardText();
             RefreshSlots();
         }
 
         private string GetTimerNewRewardText()
         {
-            if (_uiButtonsController.IsGetReward)
+            if (_rewardsStateController.IsGetReward)
                 return ConstantText.REWARD_READY;
 
             if (_view.TimeGetReward.HasValue)
@@ -65,13 +62,12 @@ namespace Rewards
 
         private void RefreshSlots()
         {
-            for (var i = 0; i < _slots.Count; i++)
+            for (int i = 0; i < _slots.Count; i++)
             {
-                Reward reward = _rewardsInfo.Rewards[i];
-                int countDay = i + 1;
+                int countCooldownPeriods = i + 1;
                 bool isSelected = i == _view.CurrentSlotInActive;
 
-                _slots[i].SetData(_rewardsInfo.RewardsDataType, reward, countDay, isSelected);
+                _slots[i].SetData(_rewardsInfo.RewardType, _rewardsInfo.Rewards[i], countCooldownPeriods, isSelected);
             }
         }
     }

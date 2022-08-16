@@ -3,14 +3,14 @@ using Object = UnityEngine.Object;
 
 namespace Rewards
 {
-    internal sealed class CurrencyFactory
+    internal sealed class CurrencySlotPanel
     {
         private readonly CurrencyView _view;
 
-        private readonly List<ResourceItemData> _resources = new();
+        private readonly List<ResourceConfig> _resources = new();
         private readonly List<CurrencySlotView> _slots = new();
 
-        public CurrencyFactory(CurrencyView currencyView, List<ResourceItemData> resources, List<CurrencySlotView> slots)
+        public CurrencySlotPanel(CurrencyView currencyView, List<ResourceConfig> resources, List<CurrencySlotView> slots)
         {
             _view = currencyView;
             _resources = resources;
@@ -28,14 +28,6 @@ namespace Rewards
             }
         }
 
-        private CurrencySlotView CreateCurrencySlotView() =>
-            Object.Instantiate
-            (
-                _view.CurrencyPrefab,
-                _view.CurrencyContainer,
-                false
-            );
-
         public void Deinit()
         {
             foreach (CurrencySlotView slot in _slots)
@@ -43,5 +35,13 @@ namespace Rewards
 
             _slots.Clear();
         }
+
+        private CurrencySlotView CreateCurrencySlotView() =>
+            Object.Instantiate
+            (
+                _view.CurrencyPrefab,
+                _view.CurrencyContainer,
+                false
+            );
     }
 }

@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1aa0b1d7c8e7a884684bc736a09940bc, type: 3}
+  m_Script: {fileID: 11500000, guid: 94a83077b5bbf7b48a1eb536bb7da965, type: 3}
   m_Name: WoodReward_2
   m_EditorClassIdentifier: 
   _resource: {fileID: 11400000, guid: e836c338155a7aa48a06e4980e3e7600, type: 2}
