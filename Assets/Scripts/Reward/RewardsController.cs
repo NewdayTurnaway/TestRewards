@@ -15,18 +15,20 @@ namespace Rewards
 
         private bool _isInitialized;
 
-        private readonly RewardsFactory _factory;
+        private readonly RewardSlotPanel _rewardSlotPanel;
+        private readonly RewardsStateController _rewardsStateController;
         private readonly RewardsUiController _uiController;
 
 
-        public RewardsController(RewardsView view, RewardsData rewardsData, CurrencyController currencyController)
+        public RewardsController(RewardsView view, RewardCollection rewardsData, CurrencyController currencyController)
         {
             _view = view;
             _rewardsInfo = new(rewardsData);
             _currencyController = currencyController;
 
-            _factory = new(_view, _rewardsInfo, _slots);
-            _uiController = new(_view, _rewardsInfo, _currencyController, _slots);
+            _rewardSlotPanel = new(_view, _rewardsInfo, _slots);
+            _rewardsStateController = new(_view, _rewardsInfo, _currencyController);
+            _uiController = new(_view, _rewardsInfo, _rewardsStateController, _slots);
         }
 
         public void Init()
@@ -34,7 +36,7 @@ namespace Rewards
             if (_isInitialized)
                 return;
 
-            _factory.InitSlots();
+            _rewardSlotPanel.InitSlots();
             _uiController.Init();
             StartRewardsUpdating();
 
@@ -46,7 +48,7 @@ namespace Rewards
             if (!_isInitialized)
                 return;
 
-            _factory.DeinitSlots();
+            _rewardSlotPanel.DeinitSlots();
             StopRewardsUpdating();
             _uiController.Deinit();
 
@@ -71,7 +73,7 @@ namespace Rewards
 
             while (true)
             {
-                _uiController.RefreshRewardsState();
+                _rewardsStateController.RefreshRewardsState();
                 _uiController.RefreshUi();
                 _currencyController.CurrencySlotsRefresh();
                 yield return waitForSecond;

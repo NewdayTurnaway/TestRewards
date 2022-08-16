@@ -1,6 +1,6 @@
 namespace Rewards
 {
-    internal enum RewardsDataType
+    internal enum RewardType
     {
         Daily,
         Weekly

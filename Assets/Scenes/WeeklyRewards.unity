@@ -1076,6 +1076,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 063f1b92edbd4b8c812689152aa9dc57, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  CurrentSlotInActiveKey: CurrentSlotInActiveKey
+  TimeGetRewardKey: TimeGetRewardKey
   <TimerNewReward>k__BackingField: {fileID: 932748650}
   <SlotsContainer>k__BackingField: {fileID: 1928727020}
   <SlotPrefab>k__BackingField: {fileID: 7979480310274708407, guid: 7beb3c2245749491c9b4795cc8b9a7e7, type: 3}

@@ -7,32 +7,22 @@ namespace Rewards
     {
         private readonly CurrencyView _view;
 
-        private readonly List<ResourceItemData> _resources = new();
+        private readonly List<ResourceConfig> _resources = new();
         private readonly List<CurrencySlotView> _slots = new();
 
-        private readonly CurrencyFactory _factory;
+        private readonly CurrencySlotPanel _currencySlotPanel;
 
-        private int GetResourceValue(ResourceType type)
-        {
-            return PlayerPrefs.GetInt(type.ToString());
-        }
-
-        private void SetResourceValue(ResourceType type, int value)
-        {
-            PlayerPrefs.SetInt(type.ToString(), value);
-        }
-
-        public CurrencyController(ResourcesData resourcesData, CurrencyView currencyView)
+        public CurrencyController(ResourceCollection resourcesData, CurrencyView currencyView)
         {
             _resources = resourcesData.Resources;
             _view = currencyView;
 
-            _factory = new(_view, _resources, _slots);
+            _currencySlotPanel = new(_view, _resources, _slots);
         }
 
         public void Init()
         {
-            _factory.Init();
+            _currencySlotPanel.Init();
             foreach (CurrencySlotView view in _slots)
             {
                 view.SetData(GetResourceValue(view.Type));
@@ -41,7 +31,7 @@ namespace Rewards
 
         public void Deinit()
         {
-            _factory.Deinit();
+            _currencySlotPanel.Deinit();
         }
 
         public void CurrencySlotsRefresh()
@@ -63,6 +53,16 @@ namespace Rewards
                     view.SetData(resourceValue);
                 }
             }
+        }
+
+        private int GetResourceValue(ResourceType type)
+        {
+            return PlayerPrefs.GetInt(type.ToString());
+        }
+
+        private void SetResourceValue(ResourceType type, int value)
+        {
+            PlayerPrefs.SetInt(type.ToString(), value);
         }
     }
 }

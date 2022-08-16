@@ -7,9 +7,11 @@ namespace Rewards
 {
     internal sealed class RewardsView : MonoBehaviour
     {
-        private const string CurrentSlotInActiveKey = nameof(CurrentSlotInActiveKey);
-        private const string TimeGetRewardKey = nameof(TimeGetRewardKey);
+        [Header("Settings PlayerPrefs Keys")]
+        [SerializeField] private string CurrentSlotInActiveKey = nameof(CurrentSlotInActiveKey);
+        [SerializeField] private string TimeGetRewardKey = nameof(TimeGetRewardKey);
 
+        [field: Header("Ui Elements")]
         [field: SerializeField] public TMP_Text TimerNewReward { get; private set; }
         [field: SerializeField] public RectTransform SlotsContainer { get; private set; }
         [field: SerializeField] public ContainerSlotRewardView SlotPrefab { get; private set; }

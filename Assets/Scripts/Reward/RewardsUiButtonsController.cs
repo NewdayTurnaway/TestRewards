@@ -1,20 +1,14 @@
-using System;
-
 namespace Rewards
 {
     internal sealed class RewardsUiButtonsController
     {
         private readonly RewardsView _view;
-        private readonly RewardsInfo _rewardsInfo;
-        private readonly CurrencyController _currencyController;
+        private readonly RewardsStateController _rewardsStateController;
 
-        public bool IsGetReward { get; private set; }
-
-        public RewardsUiButtonsController(RewardsView view, RewardsInfo rewardsInfo, CurrencyController currencyController)
+        public RewardsUiButtonsController(RewardsView view, RewardsStateController rewardsStateController)
         {
             _view = view;
-            _rewardsInfo = rewardsInfo;
-            _currencyController = currencyController;
+            _rewardsStateController = rewardsStateController;
         }
 
         public void SubscribeButtons()
@@ -29,48 +23,13 @@ namespace Rewards
             _view.ResetButton.onClick.RemoveListener(ResetRewardsState);
         }
 
-        private void ClaimReward()
-        {
-            if (!IsGetReward)
-                return;
+        public void RefreshButtonState() => 
+            _view.GetRewardButton.interactable = _rewardsStateController.IsGetReward;
 
-            Reward reward = _rewardsInfo.Rewards[_view.CurrentSlotInActive];
-            _currencyController.AddResource(reward.ResourceType, reward.CountCurrency);
+        private void ClaimReward() =>
+            _rewardsStateController.ClaimReward();
 
-            _view.TimeGetReward = DateTime.UtcNow;
-            _view.CurrentSlotInActive++;
-
-            RefreshRewardsState();
-        }
-
-        public void RefreshRewardsState()
-        {
-            bool gotRewardEarlier = _view.TimeGetReward.HasValue;
-            if (!gotRewardEarlier)
-            {
-                IsGetReward = true;
-                return;
-            }
-
-            TimeSpan timeFromLastRewardGetting =
-                DateTime.UtcNow - _view.TimeGetReward.Value;
-
-            bool isDeadlineElapsed =
-                timeFromLastRewardGetting.Seconds >= _rewardsInfo.TimeDeadline;
-
-            bool isTimeToGetNewReward =
-                timeFromLastRewardGetting.Seconds >= _rewardsInfo.TimeCooldown;
-
-            if (isDeadlineElapsed)
-                ResetRewardsState();
-
-            IsGetReward = isTimeToGetNewReward;
-        }
-
-        private void ResetRewardsState()
-        {
-            _view.TimeGetReward = null;
-            _view.CurrentSlotInActive = 0;
-        }
+        private void ResetRewardsState() =>
+            _rewardsStateController.ResetRewardsState();
     }
 }

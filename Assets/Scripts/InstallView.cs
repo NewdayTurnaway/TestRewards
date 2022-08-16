@@ -5,8 +5,8 @@ namespace Rewards
     internal sealed class InstallView : MonoBehaviour
     {
         [SerializeField] private RewardsView _rewardsView;
-        [SerializeField] private RewardsData _rewardsData;
-        [SerializeField] private ResourcesData _resourcesData;
+        [SerializeField] private RewardCollection _rewardsData;
+        [SerializeField] private ResourceCollection _resourcesData;
         [SerializeField] private CurrencyView _currencyView;
 
         private CurrencyController _currencyController;
